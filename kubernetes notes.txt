@@ -1,0 +1,61 @@
+ mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.19.8:6443 --token 32a2hv.muwygo530d91ounw \
+        --discovery-token-ca-cert-hash sha256:50fbecc7a244077d51ec1998093285f054c8edb22cfc970df8a8ec775e5d9332
+
+
+
+
+
+for kubernates node connection
+
+iptables --flush
+iptables -tnat --flush
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl restart docker
+
+
+
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+
+
+kube node joining command if lost
+--------------------------------------
+kubeadm token create --print-join-command
+
+
+to remove previous cni calic
+===========================
+rm -rf /opt/cni/bin
+rm -rf /etc/cni/net.d
+
+
+
+firewall-cmd --add-port=<relevant-port>/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --list-all - you should see <relevant-port> is updated.
+
+kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+ to delete the bridge network
+------------------------------
+ip link delete br0 type bridge
+
+
+pod communication 0/1
+-----------------------
+kubectl set env daemonset/calico-node -n kube-system IP_AUTODETECTION_METHOD=can-reach=www.google.com
