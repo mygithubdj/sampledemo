@@ -1,0 +1,21 @@
+awscli as to install and services we hav to seen is ex-aws s3 ls
+
+we have to take IAM role to instance to get the full access to any service in awscli ex-s3 full access
+
+to create bucket in aws cli
+-------------------------
+aws s3 mb(make bucket) s3://name fot bucket
+ to remove=--- aws s3 rb name of bucket
+
+
+
+Terraform
+-------------
+cloud formation tool--inforstaruture orchestration tool
+-teffafrom develop by harshi corp---which also develop--vault,vagrant,packer(image building tool)
+-aws as cloudformation - azure have azure resource manager
+-terraform is very fast and easy cloud formation tool which is used as code like JSON-java script object notation
+-terraform as which can deploye all services in an single template 
+-we can import existing resoueces from aws azure
+-with out terraform cf and arm is not easy to import resource from vmware ,nw,subnet is not easy 
+-
