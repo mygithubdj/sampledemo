@@ -1,0 +1,66 @@
+jenkins LADP
+-------------------
+we can give accesss for projects and access to jenkins master nad nodes
+
+securetyrealm----configure global security
+Ldap install
+in PHP LADP admin portal----add group and add users and bind users into groups
+   ----------------
+connect slave through aws ec2
+we have to add aws ec2 plugin in jenkins manage plugin
+we dnt need to go to aws portal for creation of ec2 for jenkins slave
+we jst take 1am role and keypair thats it we can do verything in jenkins -
+like e2,kocation,t2 micro etc  note-- install java
+port no 4243 bust be open for connecting to master slave ,in aws or docker anywhere
+
+if we use docker as slave then most imp in docker box-
+---go to docker vi /lib/systemd/docker.service
+Execstart=/use/bin/dockerd -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock
+
+select docker in configure clouds option
+to connect docker with jenkins we use --jlnp jenkin image in google
+copy url-->jenkins/jnlp-slave:latest
+keep this in docker image option in jenkins
+
+check connect method---select JNLP
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+we can run build remotely by using token name in options
+
+
+pipeline scrip in jenkins
+
+retry(3) --- retring for 3 time ---it will be right in pipleline script
+scripts are vailable in tirereetech git repository
+
+timeout
+tools ---for install tools
+when
+environment
+anyof ---anycondition satisfies build success
+
+we can use when condition wjen two git brnaches using    for suppose dev branch and master branch is there we use when condition to skin master branch
+                                                         for dev |  we skip dev brnach for master 
+
+input ---- parameters
+options --BuildDiscarder -- to keep the builds
+parameters---for user and credantials ,,,all parameters are shown in jenkins dashboard
+
+
+arge -e ---for arguments for calling
+alwayspull yes  for again pulling image 
+
+
+diffrence in declarative and scripted pipeline 
+
+declaratiovi -----pipeline {
+agent any
+stage{ 
+
+scripted ------node  {
+
+always declare the varibale in scripted pipeline
+
+choice ---parameter  --- dropdown 
